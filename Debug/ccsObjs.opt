@@ -1,0 +1,9 @@
+"./empty.o"
+"./ti_msp_dl_config.o"
+"./startup_mspm0l130x_gcc.o"
+-Wl,-T"./device_linker.lds"
+-Wl,-Tdevice.lds.genlibs
+-lgcc
+-lc
+-lm
+-lnosys
