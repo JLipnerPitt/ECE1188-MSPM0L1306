@@ -12,9 +12,14 @@ Discarded input sections
  .text.SYSCFG_DL_GPIO_init
                 0x00000000        0x4 ./ti_msp_dl_config.o
  .text.SYSCFG_DL_SYSCTL_init
-                0x00000000       0x30 ./ti_msp_dl_config.o
+                0x00000000       0x20 ./ti_msp_dl_config.o
  .text.SYSCFG_DL_init
                 0x00000000       0x10 ./ti_msp_dl_config.o
+ .text.GPIOA_Output
+                0x00000000       0x1c ./main.o
+ .text.GPIOA_Input
+                0x00000000       0x20 ./main.o
+ .text.main2    0x00000000       0x1c ./main.o
  .text.DL_Common_delayCycles
                 0x00000000        0xc C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
 
@@ -29,9 +34,9 @@ BSL_CONFIG       0x41c00100         0x00000080         r
 
 Linker script and memory map
 
-LOAD ./empty.o
 LOAD ./ti_msp_dl_config.o
 LOAD ./startup_mspm0l130x_gcc.o
+LOAD ./main.o
                 0x00000000                _Min_Heap_Size = 0x0
                 0x00000080                _Min_Stack_Size = 0x80
                 0x00000000                PROVIDE (_intvecs_base_address = DEFINED (_intvecs_base_address)?_intvecs_base_address:0x0)
@@ -45,146 +50,149 @@ LOAD ./startup_mspm0l130x_gcc.o
 .vtable
  *(.vtable)
 
-.text           0x000000c0       0xe0
+.text           0x000000c0      0x1c8
  CREATE_OBJECT_SYMBOLS
  *(.text)
- .text          0x000000c0        0x0 ./empty.o
  .text          0x000000c0        0x0 ./ti_msp_dl_config.o
  .text          0x000000c0        0x0 ./startup_mspm0l130x_gcc.o
+ .text          0x000000c0        0x0 ./main.o
  .text          0x000000c0        0x0 C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
  .text          0x000000c0        0x0 C:/ti/ccs1271/ccs/tools/compiler/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(lib_a-init.o)
                 0x000000c0                . = ALIGN (0x8)
  *(.text.*)
- .text.startup.main
-                0x000000c0        0x4 ./empty.o
-                0x000000c0                main
  .text.Default_Handler
-                0x000000c4        0x4 ./startup_mspm0l130x_gcc.o
-                0x000000c4                TIMG2_IRQHandler
-                0x000000c4                I2C0_IRQHandler
-                0x000000c4                HardFault_Handler
-                0x000000c4                SysTick_Handler
-                0x000000c4                PendSV_Handler
-                0x000000c4                NMI_Handler
-                0x000000c4                I2C1_IRQHandler
-                0x000000c4                UART1_IRQHandler
-                0x000000c4                UART0_IRQHandler
-                0x000000c4                ADC0_IRQHandler
-                0x000000c4                TIMG0_IRQHandler
-                0x000000c4                GROUP1_IRQHandler
-                0x000000c4                GROUP0_IRQHandler
-                0x000000c4                Default_Handler
-                0x000000c4                SVC_Handler
-                0x000000c4                TIMG1_IRQHandler
-                0x000000c4                SPI0_IRQHandler
-                0x000000c4                DMA_IRQHandler
-                0x000000c4                TIMG4_IRQHandler
+                0x000000c0        0x4 ./startup_mspm0l130x_gcc.o
+                0x000000c0                TIMG2_IRQHandler
+                0x000000c0                I2C0_IRQHandler
+                0x000000c0                HardFault_Handler
+                0x000000c0                SysTick_Handler
+                0x000000c0                PendSV_Handler
+                0x000000c0                NMI_Handler
+                0x000000c0                I2C1_IRQHandler
+                0x000000c0                UART1_IRQHandler
+                0x000000c0                UART0_IRQHandler
+                0x000000c0                ADC0_IRQHandler
+                0x000000c0                TIMG0_IRQHandler
+                0x000000c0                GROUP1_IRQHandler
+                0x000000c0                GROUP0_IRQHandler
+                0x000000c0                Default_Handler
+                0x000000c0                SVC_Handler
+                0x000000c0                TIMG1_IRQHandler
+                0x000000c0                SPI0_IRQHandler
+                0x000000c0                DMA_IRQHandler
+                0x000000c0                TIMG4_IRQHandler
  .text.Reset_Handler
-                0x000000c8       0x8c ./startup_mspm0l130x_gcc.o
-                0x000000c8                Reset_Handler
+                0x000000c4       0x8c ./startup_mspm0l130x_gcc.o
+                0x000000c4                Reset_Handler
  .text.initStub
-                0x00000154        0x4 ./startup_mspm0l130x_gcc.o
-                0x00000154                initStub
-                0x00000154                _init
+                0x00000150        0x4 ./startup_mspm0l130x_gcc.o
+                0x00000150                initStub
+                0x00000150                _init
+ .text.GPIO_Init
+                0x00000154       0x58 ./main.o
+                0x00000154                GPIO_Init
+ .text.startup.main
+                0x000001ac       0x94 ./main.o
+                0x000001ac                main
  .text.__libc_init_array
-                0x00000158       0x44 C:/ti/ccs1271/ccs/tools/compiler/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(lib_a-init.o)
-                0x00000158                __libc_init_array
-                0x000001a0                . = ALIGN (0x8)
- *fill*         0x0000019c        0x4 
+                0x00000240       0x44 C:/ti/ccs1271/ccs/tools/compiler/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(lib_a-init.o)
+                0x00000240                __libc_init_array
+                0x00000288                . = ALIGN (0x8)
+ *fill*         0x00000284        0x4 
  *(.ctors)
-                0x000001a0                . = ALIGN (0x8)
+                0x00000288                . = ALIGN (0x8)
  *(.dtors)
-                0x000001a0                . = ALIGN (0x8)
+                0x00000288                . = ALIGN (0x8)
  *(.init)
-                0x000001a0                . = ALIGN (0x8)
+                0x00000288                . = ALIGN (0x8)
  *(.fini*)
-                0x000001a0                . = ALIGN (0x8)
+                0x00000288                . = ALIGN (0x8)
 
-.glue_7         0x000001a0        0x0
- .glue_7        0x000001a0        0x0 linker stubs
+.glue_7         0x00000288        0x0
+ .glue_7        0x00000288        0x0 linker stubs
 
-.glue_7t        0x000001a0        0x0
- .glue_7t       0x000001a0        0x0 linker stubs
+.glue_7t        0x00000288        0x0
+ .glue_7t       0x00000288        0x0 linker stubs
 
-.vfp11_veneer   0x000001a0        0x0
- .vfp11_veneer  0x000001a0        0x0 linker stubs
+.vfp11_veneer   0x00000288        0x0
+ .vfp11_veneer  0x00000288        0x0 linker stubs
 
-.v4_bx          0x000001a0        0x0
- .v4_bx         0x000001a0        0x0 linker stubs
+.v4_bx          0x00000288        0x0
+ .v4_bx         0x00000288        0x0 linker stubs
 
-.iplt           0x000001a0        0x0
- .iplt          0x000001a0        0x0 ./empty.o
+.iplt           0x00000288        0x0
+ .iplt          0x00000288        0x0 ./ti_msp_dl_config.o
 
-.rel.dyn        0x000001a0        0x0
- .rel.iplt      0x000001a0        0x0 ./empty.o
+.rel.dyn        0x00000288        0x0
+ .rel.iplt      0x00000288        0x0 ./ti_msp_dl_config.o
 
-.ramfunc        0x20000000        0x0 load address 0x000001a0
-                0x000001a0                __ramfunct_load__ = LOADADDR (.ramfunc)
+.ramfunc        0x20000000        0x0 load address 0x00000288
+                0x00000288                __ramfunct_load__ = LOADADDR (.ramfunc)
                 0x20000000                __ramfunct_start__ = .
  *(.ramfunc)
                 0x20000000                . = ALIGN (0x8)
                 0x20000000                __ramfunct_end__ = .
 
-.rodata         0x000001a0        0x0
+.rodata         0x00000288        0x0
  *(.rodata)
-                0x000001a0                . = ALIGN (0x8)
+                0x00000288                . = ALIGN (0x8)
  *(.rodata.*)
-                0x000001a0                . = ALIGN (0x8)
+                0x00000288                . = ALIGN (0x8)
 
-.preinit_array  0x000001a0        0x0
-                0x000001a0                PROVIDE (__preinit_array_start = .)
+.preinit_array  0x00000288        0x0
+                0x00000288                PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x000001a0                PROVIDE (__preinit_array_end = .)
+                0x00000288                PROVIDE (__preinit_array_end = .)
 
-.init_array     0x000001a0        0x0
-                0x000001a0                . = ALIGN (0x8)
-                0x000001a0                PROVIDE (__init_array_start = .)
+.init_array     0x00000288        0x0
+                0x00000288                . = ALIGN (0x8)
+                0x00000288                PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
-                0x000001a0                PROVIDE (__init_array_end = .)
+                0x00000288                PROVIDE (__init_array_end = .)
 
-.fini_array     0x000001a0        0x0
-                0x000001a0                . = ALIGN (0x8)
+.fini_array     0x00000288        0x0
+                0x00000288                . = ALIGN (0x8)
                 [!provide]                PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
                 [!provide]                PROVIDE (__fini_array_end = .)
-                0x000001a0                . = ALIGN (0x8)
+                0x00000288                . = ALIGN (0x8)
 
-.ARM.exidx      0x000001a0        0x0
-                0x000001a0                __exidx_start = .
+.ARM.exidx      0x00000288        0x0
+                0x00000288                __exidx_start = .
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x000001a0                __exidx_end = .
+                0x00000288                __exidx_end = .
 
-.ARM.extab      0x000001a0        0x0
-                0x000001a0                . = ALIGN (0x8)
+.ARM.extab      0x00000288        0x0
+                0x00000288                . = ALIGN (0x8)
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x000001a0                . = ALIGN (0x8)
-                0x000001a0                __etext = .
+                0x00000288                . = ALIGN (0x8)
+                0x00000288                __etext = .
 
-.data           0x20000000        0x0 load address 0x000001a0
-                0x000001a0                __data_load__ = LOADADDR (.data)
+.data           0x20000000        0x0 load address 0x00000288
+                0x00000288                __data_load__ = LOADADDR (.data)
                 0x20000000                __data_start__ = .
  *(.data)
- .data          0x20000000        0x0 ./empty.o
  .data          0x20000000        0x0 ./ti_msp_dl_config.o
  .data          0x20000000        0x0 ./startup_mspm0l130x_gcc.o
+ .data          0x20000000        0x0 ./main.o
  .data          0x20000000        0x0 C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
  .data          0x20000000        0x0 C:/ti/ccs1271/ccs/tools/compiler/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(lib_a-init.o)
  *(.data*)
                 0x20000000                . = ALIGN (0x8)
                 0x20000000                __data_end__ = .
 
-.igot.plt       0x20000000        0x0 load address 0x000001a0
- .igot.plt      0x20000000        0x0 ./empty.o
+.igot.plt       0x20000000        0x0 load address 0x00000288
+ .igot.plt      0x20000000        0x0 ./ti_msp_dl_config.o
 
 .bss            0x20000000        0x0
                 0x20000000                __bss_start__ = .
  *(.shbss)
  *(.bss)
- .bss           0x20000000        0x0 ./empty.o
  .bss           0x20000000        0x0 ./ti_msp_dl_config.o
  .bss           0x20000000        0x0 ./startup_mspm0l130x_gcc.o
+ .bss           0x20000000        0x0 ./main.o
  .bss           0x20000000        0x0 C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
  .bss           0x20000000        0x0 C:/ti/ccs1271/ccs/tools/compiler/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(lib_a-init.o)
  *(.bss.*)
@@ -228,76 +236,77 @@ LOAD C:/ti/ccs1271/ccs/tools/compiler/gcc-arm-none-eabi-9-2019-q4-major/arm-none
 END GROUP
 OUTPUT(empty_LP_MSPM0L1306_nortos_gcc.out elf32-littlearm)
 
-.debug_info     0x00000000     0xdffe
- .debug_info    0x00000000     0x462f ./empty.o
- .debug_info    0x0000462f     0x51b5 ./ti_msp_dl_config.o
- .debug_info    0x000097e4      0x1bc ./startup_mspm0l130x_gcc.o
- .debug_info    0x000099a0     0x465e C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
+.debug_info     0x00000000     0xe04b
+ .debug_info    0x00000000     0x50dc ./ti_msp_dl_config.o
+ .debug_info    0x000050dc      0x1bc ./startup_mspm0l130x_gcc.o
+ .debug_info    0x00005298     0x4755 ./main.o
+ .debug_info    0x000099ed     0x465e C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
 
-.debug_abbrev   0x00000000      0x7e1
- .debug_abbrev  0x00000000      0x1c4 ./empty.o
- .debug_abbrev  0x000001c4      0x354 ./ti_msp_dl_config.o
- .debug_abbrev  0x00000518       0xe7 ./startup_mspm0l130x_gcc.o
- .debug_abbrev  0x000005ff      0x1e2 C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
+.debug_abbrev   0x00000000      0x8b4
+ .debug_abbrev  0x00000000      0x341 ./ti_msp_dl_config.o
+ .debug_abbrev  0x00000341       0xe7 ./startup_mspm0l130x_gcc.o
+ .debug_abbrev  0x00000428      0x2aa ./main.o
+ .debug_abbrev  0x000006d2      0x1e2 C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
 
-.debug_aranges  0x00000000       0xa8
+.debug_aranges  0x00000000       0xc8
  .debug_aranges
-                0x00000000       0x20 ./empty.o
+                0x00000000       0x38 ./ti_msp_dl_config.o
  .debug_aranges
-                0x00000020       0x38 ./ti_msp_dl_config.o
+                0x00000038       0x30 ./startup_mspm0l130x_gcc.o
  .debug_aranges
-                0x00000058       0x30 ./startup_mspm0l130x_gcc.o
+                0x00000068       0x40 ./main.o
  .debug_aranges
-                0x00000088       0x20 C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
+                0x000000a8       0x20 C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
 
-.debug_ranges   0x00000000       0xa0
- .debug_ranges  0x00000000       0x10 ./empty.o
- .debug_ranges  0x00000010       0x60 ./ti_msp_dl_config.o
- .debug_ranges  0x00000070       0x20 ./startup_mspm0l130x_gcc.o
- .debug_ranges  0x00000090       0x10 C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
+.debug_ranges   0x00000000      0x140
+ .debug_ranges  0x00000000       0x60 ./ti_msp_dl_config.o
+ .debug_ranges  0x00000060       0x20 ./startup_mspm0l130x_gcc.o
+ .debug_ranges  0x00000080       0xb0 ./main.o
+ .debug_ranges  0x00000130       0x10 C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
 
-.debug_line     0x00000000      0xeec
- .debug_line    0x00000000      0x371 ./empty.o
- .debug_line    0x00000371      0x58f ./ti_msp_dl_config.o
- .debug_line    0x00000900      0x215 ./startup_mspm0l130x_gcc.o
- .debug_line    0x00000b15      0x3d7 C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
+.debug_line     0x00000000     0x107f
+ .debug_line    0x00000000      0x56a ./ti_msp_dl_config.o
+ .debug_line    0x0000056a      0x215 ./startup_mspm0l130x_gcc.o
+ .debug_line    0x0000077f      0x529 ./main.o
+ .debug_line    0x00000ca8      0x3d7 C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
 
-.debug_str      0x00000000     0x1eff
- .debug_str     0x00000000     0x145c ./empty.o
-                               0x1513 (size before relaxing)
- .debug_str     0x0000145c      0x7b0 ./ti_msp_dl_config.o
-                               0x1cf6 (size before relaxing)
- .debug_str     0x00001c0c      0x13d ./startup_mspm0l130x_gcc.o
+.debug_str      0x00000000     0x1d63
+ .debug_str     0x00000000     0x1a27 ./ti_msp_dl_config.o
+                               0x1b21 (size before relaxing)
+ .debug_str     0x00001a27      0x13d ./startup_mspm0l130x_gcc.o
                                 0x308 (size before relaxing)
- .debug_str     0x00001d49      0x1b6 C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
+ .debug_str     0x00001b64       0x49 ./main.o
+                               0x1559 (size before relaxing)
+ .debug_str     0x00001bad      0x1b6 C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
                                0x1586 (size before relaxing)
 
 .comment        0x00000000       0x79
- .comment       0x00000000       0x79 ./empty.o
+ .comment       0x00000000       0x79 ./ti_msp_dl_config.o
                                  0x7a (size before relaxing)
- .comment       0x00000079       0x7a ./ti_msp_dl_config.o
  .comment       0x00000079       0x7a ./startup_mspm0l130x_gcc.o
+ .comment       0x00000079       0x7a ./main.o
  .comment       0x00000079       0x7a C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
 
 .ARM.attributes
                 0x00000000       0x2c
  .ARM.attributes
-                0x00000000       0x2b ./empty.o
+                0x00000000       0x2b ./ti_msp_dl_config.o
  .ARM.attributes
-                0x0000002b       0x2b ./ti_msp_dl_config.o
+                0x0000002b       0x2b ./startup_mspm0l130x_gcc.o
  .ARM.attributes
-                0x00000056       0x2b ./startup_mspm0l130x_gcc.o
+                0x00000056       0x2b ./main.o
  .ARM.attributes
                 0x00000081       0x2b C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
  .ARM.attributes
                 0x000000ac       0x2c C:/ti/ccs1271/ccs/tools/compiler/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(lib_a-init.o)
 
-.debug_frame    0x00000000      0x114
- .debug_frame   0x00000000       0x20 ./empty.o
- .debug_frame   0x00000020       0x60 ./ti_msp_dl_config.o
- .debug_frame   0x00000080       0x48 ./startup_mspm0l130x_gcc.o
- .debug_frame   0x000000c8       0x20 C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
- .debug_frame   0x000000e8       0x2c C:/ti/ccs1271/ccs/tools/compiler/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(lib_a-init.o)
+.debug_frame    0x00000000      0x178
+ .debug_frame   0x00000000       0x60 ./ti_msp_dl_config.o
+ .debug_frame   0x00000060       0x48 ./startup_mspm0l130x_gcc.o
+ .debug_frame   0x000000a8       0x84 ./main.o
+ .debug_frame   0x0000012c       0x20 C:/ti/mspm0_sdk_2_01_00_03/source\ti/driverlib/lib/gcc/m0p/mspm0l11xx_l13xx/driverlib.a(dl_common.o)
+ .debug_frame   0x0000014c       0x2c C:/ti/ccs1271/ccs/tools/compiler/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(lib_a-init.o)
 
-.debug_loc      0x00000000       0x13
+.debug_loc      0x00000000       0x47
  .debug_loc     0x00000000       0x13 ./startup_mspm0l130x_gcc.o
+ .debug_loc     0x00000013       0x34 ./main.o
