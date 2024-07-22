@@ -71,9 +71,16 @@ int main(void) {
    SysTick_Init();
 
    while(1) {
-       GPIOA_LED(0x01);
-       SysTick_Wait1us(15000);
-       GPIOA_LED(0);
-       SysTick_Wait1us(10000);
+       for (uint8_t i = 0; i < 100; i++) {
+           uint32_t H = PulseBuf[i];
+           uint32_t L = 10000 - H;
+           GPIOA_LED(0x01);   // red LED on
+           GPIOA->DOUT31_0 |= (1<<22); // PA22 high
+           SysTick_Wait1us(H);
+
+           GPIOA_LED(0);   // red LED off
+           GPIOA->DOUT31_0 &= (1<<22); // PA22 low
+           SysTick_Wait1us(L);
+       }
    }
 }

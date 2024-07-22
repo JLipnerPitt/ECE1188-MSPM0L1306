@@ -66,14 +66,32 @@ void SysTick_Wait1us(uint32_t delay){
     }
 }
 
+void Program9_1(void){
+  //Clock_Init48MHz();  // makes bus clock 48 MHz
+  SysTick_Init();
+  GPIOA_Init();   // buttons and LEDs
+  //TExaS_Init(LOGICANALYZER_P1);
+
+  // configures PA22
+  GPIOA->DOE31_0 |= (1<<22); // Enables PA22 as output
+  IOMUX->SECCFG.PINCM[22] |= (1<<0) | (1<<7);
+
+  while(1) {
+    GPIOA_LED(0x01);   // red LED on
+    GPIOA->DOUT31_0 &= ~(1<<22); // PA22 low
+    SysTick_Wait1us(7500);
+
+    GPIOA_LED(0); // red LED off
+    GPIOA->DOUT31_0 |= (1<<22); // PA22 high
+    SysTick_Wait1us(2500);
+  }
+}
+
 int main(void) {
    GPIOA_Init();
    SysTick_Init();
 
    while(1) {
-       GPIOA_LED(0x01);
-       SysTick_Wait1us(15000);
-       GPIOA_LED(0);
-       SysTick_Wait1us(10000);
+      Program9_1();
    }
 }

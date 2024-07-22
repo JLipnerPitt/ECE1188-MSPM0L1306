@@ -39,15 +39,20 @@
 void GPIOA_Init(void) {
     // configuring LEDs
     GPIOA->GPRCM.PWREN = (0x26000000 | 0x01); // Enables Power for GPIOA Register
-    GPIOA->DOE31_0 |= (1<<13) | (1<<26) | (1<<27); // Enables PA27, PA26, PA13 as output
-    IOMUX->SECCFG.PINCM[13] |= (1<<0) | (1<<7); // The output latch of the dataflow will be “transparent”
-    IOMUX->SECCFG.PINCM[26] |= (1<<0) | (1<<7); // The output latch of the dataflow will be “transparent”
-    IOMUX->SECCFG.PINCM[27] |= (1<<0) | (1<<7); // The output latch of the dataflow will be “transparent”
+    GPIOA->DOE31_0 |= (1<<0) | (1<<13) | (1<<26) | (1<<27); // Enables PA27, PA26, PA13, PA0 as output
+
+    // (1<<0) - See page 735 of the technical reference manual.
+    // (1<<7) - Connects peripheral. Writing 1 makes the output latch of the dataflow “transparent”.
+    IOMUX->SECCFG.PINCM[0] |= (1<<0) | (1<<7) | (1<<26); // see datasheet for why this pin is inverted with (1<<26)
+    IOMUX->SECCFG.PINCM[13] |= (1<<0) | (1<<7);
+    IOMUX->SECCFG.PINCM[26] |= (1<<0) | (1<<7);
+    IOMUX->SECCFG.PINCM[27] |= (1<<0) | (1<<7);
 
     // configuring input switches
 
     // PA18, Switch 1
     // (1<<0) - See page 735 of the technical reference manual.
+    // (1<<7) - Connects peripheral. Writing 1 makes the output latch of the dataflow “transparent”.
     // (1<<18) - Input Enable Control Selection. Writing 1 enables as input.
     // (1<<26) - Data inversion selection. Writing 1 enables data inversion.
     // See page 16 in the datasheet. Switch 1 is already inherently configured as Pull-down.
@@ -63,7 +68,7 @@ void GPIOA_Init(void) {
 }
 
 void GPIOA_LED(uint8_t data) {
-    // PA27 = blue led, PA26 = red led, PA13 = green led
+    // PA0 = red led
     GPIOA->DOUT3_0 = (GPIOA->DOUT3_0 & 0xE) | data;
 }
 

@@ -10,8 +10,9 @@ GEN_OPTS__FLAG := @"./device.opt"
 GEN_CMDS__FLAG := -Wl,-T"./device_linker.lds" 
 
 ORDERED_OBJS += \
-"./Lab09_SysTickmain_1.o" \
+"./Lab09_SysTickmain_3.o" \
 "./LaunchPad.o" \
+"./SysTick.o" \
 "./ti_msp_dl_config.o" \
 "./startup_mspm0l130x_gcc.o" \
 $(GEN_CMDS__FLAG) \
@@ -147,8 +148,8 @@ ECE1188\ HW3\ Solution.out: $(OBJS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(GEN_MISC_FILES__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "Lab09_SysTickmain_1.o" "LaunchPad.o" "ti_msp_dl_config.o" "startup_mspm0l130x_gcc.o" 
-	-$(RM) "Lab09_SysTickmain_1.d" "LaunchPad.d" "ti_msp_dl_config.d" "startup_mspm0l130x_gcc.d" 
+	-$(RM) "Lab09_SysTickmain_3.o" "LaunchPad.o" "SysTick.o" "ti_msp_dl_config.o" "startup_mspm0l130x_gcc.o" 
+	-$(RM) "Lab09_SysTickmain_3.d" "LaunchPad.d" "SysTick.d" "ti_msp_dl_config.d" "startup_mspm0l130x_gcc.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
