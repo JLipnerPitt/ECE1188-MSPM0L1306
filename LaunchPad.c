@@ -32,12 +32,19 @@
 
 #include <mspm0l130x.h>
 
-void GPIO_Init(void) {
+#define RED       0x01
+#define GREEN     0x02
+#define BLUE      0x04
+
+void GPIOA_Init(void) {
     // configuring LEDs
     GPIOA->GPRCM.PWREN = (0x26000000 | 0x01); // Enables Power for GPIOA Register
-    GPIOA->DOE31_0 |= (1<<22) | (1<<24); // Enables PA24, PA22 as output
-    IOMUX->SECCFG.PINCM[24] |= (1<<0) | (1<<7);
-    IOMUX->SECCFG.PINCM[22] |= (1<<0) | (1<<7);
+    GPIOA->DOE31_0 |= (1<<13) | (1<<26) | (1<<27); // Enables PA27, PA26, PA13 as output
+    IOMUX->SECCFG.PINCM[13] |= (1<<0) | (1<<7); // The output latch of the dataflow will be “transparent”
+    IOMUX->SECCFG.PINCM[26] |= (1<<0) | (1<<7); // The output latch of the dataflow will be “transparent”
+    IOMUX->SECCFG.PINCM[27] |= (1<<0) | (1<<7); // The output latch of the dataflow will be “transparent”
+
+    // configuring input switches
 
     // PA18, Switch 1
     // (1<<0) - See page 735 of the technical reference manual.
@@ -55,33 +62,16 @@ void GPIO_Init(void) {
     IOMUX->SECCFG.PINCM[14] |= (1<<0) | (1<<7) | (1<<17) | (1<<18);
 }
 
+void GPIOA_LED(uint8_t data) {
+    // PA27 = blue led, PA26 = red led, PA13 = green led
+    GPIOA->DOUT3_0 = (GPIOA->DOUT3_0 & 0xE) | data;
+}
+
 void GPIOA_Output(uint32_t data) {
     // PA27 = blue led, PA26 = red led, PA13 = green led
-    GPIOA->DOUT31_0 = (GPIOA->DOUT31_0 & 0xFEC00000) | data;
+    GPIOA->DOUT31_0 = (GPIOA->DOUT31_0 & 0xF3FFE000) | data;
 }
 
 uint8_t GPIOA_Input(void) {
     return (GPIOA->DIN19_16 >> 12) | (GPIOA->DIN15_12 >> 16); // reads PA18 and PA14
-}
-
-int main(void) {
-   GPIO_Init();
-   uint8_t status;
-
-   while (1) {
-       status = GPIOA_Input();
-       switch(status) { // switches are negative logic on PA14 and PA18
-         case 0x10: // SW1 pressed
-           GPIOA_Output(1<<22);
-           break;
-         case 0x01: // SW2 pressed
-             GPIOA_Output(1<<24);
-           break;
-         case 0x00: // both switches pressed, white light
-             GPIOA_Output(1<<22 | 1<<24);
-           break;
-         default: // neither switch pressed, no leds light up
-             GPIOA->DOUT31_0 = 0;
-       }
-     }
 }

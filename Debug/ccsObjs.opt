@@ -1,4 +1,5 @@
-"./InputOut_extern.o"
+"./Lab09_SysTickmain_1.o"
+"./LaunchPad.o"
 "./ti_msp_dl_config.o"
 "./startup_mspm0l130x_gcc.o"
 -Wl,-T"./device_linker.lds"

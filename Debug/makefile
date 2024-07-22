@@ -10,7 +10,8 @@ GEN_OPTS__FLAG := @"./device.opt"
 GEN_CMDS__FLAG := -Wl,-T"./device_linker.lds" 
 
 ORDERED_OBJS += \
-"./InputOut_extern.o" \
+"./Lab09_SysTickmain_1.o" \
+"./LaunchPad.o" \
 "./ti_msp_dl_config.o" \
 "./startup_mspm0l130x_gcc.o" \
 $(GEN_CMDS__FLAG) \
@@ -125,29 +126,29 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-ECE1188\ HW1\ Solution.out 
+ECE1188\ HW3\ Solution.out 
 
 EXE_OUTPUTS__QUOTED += \
-"ECE1188 HW1 Solution.out" 
+"ECE1188 HW3 Solution.out" 
 
 
 # All Target
 all: $(OBJS) $(GEN_CMDS)
-	@$(MAKE) --no-print-directory -Onone "ECE1188 HW1 Solution.out"
+	@$(MAKE) --no-print-directory -Onone "ECE1188 HW3 Solution.out"
 
 # Tool invocations
-ECE1188\ HW1\ Solution.out: $(OBJS) $(GEN_CMDS)
+ECE1188\ HW3\ Solution.out: $(OBJS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: GNU Linker'
-	"C:/ti/ccs1271/ccs/tools/compiler/gcc-arm-none-eabi-9-2019-q4-major/bin/arm-none-eabi-gcc-9.2.1.exe" @"device.opt"  -O2 -ffunction-sections -fdata-sections -g -gdwarf-3 -gstrict-dwarf -Wall -mthumb -mfloat-abi=soft -Wl,-Map,"ECE1188 HW1 Solution.map" -nostartfiles -static -Wl,--gc-sections -L"C:/ti/mspm0_sdk_2_01_00_03/source" -L"C:/Users/iamth/Desktop/Semester Classes/Summer 2024/ECE1188/code/ECE1188 HW1 Solution" -L"C:/Users/iamth/Desktop/Semester Classes/Summer 2024/ECE1188/code/ECE1188 HW1 Solution/Debug/syscfg" -L"C:/ti/ccs1271/ccs/tools/compiler/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/lib/thumb/v6-m/nofp" -march=armv6-m -mthumb -o"ECE1188 HW1 Solution.out" $(ORDERED_OBJS)
+	"C:/ti/ccs1271/ccs/tools/compiler/gcc-arm-none-eabi-9-2019-q4-major/bin/arm-none-eabi-gcc-9.2.1.exe" @"device.opt"  -O2 -ffunction-sections -fdata-sections -g -gdwarf-3 -gstrict-dwarf -Wall -mthumb -mfloat-abi=soft -Wl,-Map,"ECE1188 HW3 Solution.map" -nostartfiles -static -Wl,--gc-sections -L"C:/ti/mspm0_sdk_2_01_00_03/source" -L"C:/Users/iamth/Desktop/Semester Classes/Summer 2024/ECE1188/code/ ECE1188 HW3 Solution" -L"C:/Users/iamth/Desktop/Semester Classes/Summer 2024/ECE1188/code/ ECE1188 HW3 Solution/Debug/syscfg" -L"C:/ti/ccs1271/ccs/tools/compiler/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/lib/thumb/v6-m/nofp" -march=armv6-m -mthumb -o"ECE1188 HW3 Solution.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(GEN_MISC_FILES__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "InputOut_extern.o" "ti_msp_dl_config.o" "startup_mspm0l130x_gcc.o" 
-	-$(RM) "InputOut_extern.d" "ti_msp_dl_config.d" "startup_mspm0l130x_gcc.d" 
+	-$(RM) "Lab09_SysTickmain_1.o" "LaunchPad.o" "ti_msp_dl_config.o" "startup_mspm0l130x_gcc.o" 
+	-$(RM) "Lab09_SysTickmain_1.d" "LaunchPad.d" "ti_msp_dl_config.d" "startup_mspm0l130x_gcc.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
