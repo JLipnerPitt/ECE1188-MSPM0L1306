@@ -15,6 +15,6 @@
 	<ignoreDefaultCCSSettings value="true"/>
 	<templateProperties value="id=empty_LP_MSPM0L1306_nortos_gcc.projectspec.empty_LP_MSPM0L1306_nortos_gcc,buildProfile=release,isHybrid=true"/>
 	<sourceLookupPath value="${COM_TI_MSPM0_SDK_INSTALL_DIR}/source/ti/driverlib"/>
-	<origin value="C:\ti\mspm0_sdk_2_01_00_03\examples\nortos\LP_MSPM0L1306\driverlib\empty\gcc\empty_LP_MSPM0L1306_nortos_gcc.projectspec"/>
+	<origin value="C:/Users/iamth/Desktop/Semester Classes/Summer 2024/ECE1188/code/empty_project_gcc"/>
 	<filesToOpen value="empty.syscfg,README.md"/>
 </projectOptions>
