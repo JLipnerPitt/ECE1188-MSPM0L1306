@@ -9,7 +9,7 @@ SYSCFG_SRCS += \
 ../empty.syscfg 
 
 C_SRCS += \
-../InputOut_extern.c \
+../InputOutput_mod.c \
 ./ti_msp_dl_config.c \
 C:/ti/mspm0_sdk_2_01_00_03/source/ti/devices/msp/m0p/startup_system_files/gcc/startup_mspm0l130x_gcc.c 
 
@@ -22,7 +22,7 @@ GEN_FILES += \
 ./ti_msp_dl_config.c 
 
 C_DEPS += \
-./InputOut_extern.d \
+./InputOutput_mod.d \
 ./ti_msp_dl_config.d \
 ./startup_mspm0l130x_gcc.d 
 
@@ -30,7 +30,7 @@ GEN_OPTS += \
 ./device.opt 
 
 OBJS += \
-./InputOut_extern.o \
+./InputOutput_mod.o \
 ./ti_msp_dl_config.o \
 ./startup_mspm0l130x_gcc.o 
 
@@ -39,7 +39,7 @@ GEN_MISC_FILES += \
 ./ti_msp_dl_config.h 
 
 OBJS__QUOTED += \
-"InputOut_extern.o" \
+"InputOutput_mod.o" \
 "ti_msp_dl_config.o" \
 "startup_mspm0l130x_gcc.o" 
 
@@ -48,7 +48,7 @@ GEN_MISC_FILES__QUOTED += \
 "ti_msp_dl_config.h" 
 
 C_DEPS__QUOTED += \
-"InputOut_extern.d" \
+"InputOutput_mod.d" \
 "ti_msp_dl_config.d" \
 "startup_mspm0l130x_gcc.d" 
 
@@ -58,7 +58,7 @@ GEN_FILES__QUOTED += \
 "ti_msp_dl_config.c" 
 
 C_SRCS__QUOTED += \
-"../InputOut_extern.c" \
+"../InputOutput_mod.c" \
 "./ti_msp_dl_config.c" \
 "C:/ti/mspm0_sdk_2_01_00_03/source/ti/devices/msp/m0p/startup_system_files/gcc/startup_mspm0l130x_gcc.c" 
 

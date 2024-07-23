@@ -64,7 +64,7 @@ void GPIO_Init(void) {
 
 void GPIOA_Output(uint32_t data) {
     // PA27 = blue led, PA26 = red led, PA13 = green led
-    GPIOA->DOUT31_0 = (GPIOA->DOUT31_0 & 0xF3FFE000) | data;
+    GPIOA->DOUT31_0 = (GPIOA->DOUT31_0 & 0x3FFDFFF) | data;
 }
 
 uint8_t GPIOA_Input(void) {
@@ -79,16 +79,16 @@ int main(void) {
        status = GPIOA_Input();
        switch(status) { // switches are negative logic on PA14 and PA18
          case 0x10: // SW1 pressed, yellow light
-           GPIOA_Output(1<<13 | 1<<26);
+           GPIOA_Output(0x4002000);
            break;
          case 0x01: // SW2 pressed, light blue light
-             GPIOA_Output(1<<13 | 1<<27);
+             GPIOA_Output(0x8002000);
            break;
          case 0x00: // both switches pressed, white light
-             GPIOA_Output(1<<13 | 1<<26 | 1<<27);
+             GPIOA_Output(0xC002000);
            break;
          default: // neither switch pressed, green light
-             GPIOA_Output(1<<13);
+             GPIOA_Output(0x0);
        }
      }
 }
