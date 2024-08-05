@@ -9,9 +9,11 @@ SYSCFG_SRCS += \
 ../empty.syscfg 
 
 C_SRCS += \
-../empty.c \
+../Motor_Simple.c \
+../SysTick.c \
 ./ti_msp_dl_config.c \
-C:/ti/mspm0_sdk_2_01_00_03/source/ti/devices/msp/m0p/startup_system_files/gcc/startup_mspm0l130x_gcc.c 
+C:/ti/mspm0_sdk_2_01_00_03/source/ti/devices/msp/m0p/startup_system_files/gcc/startup_mspm0l130x_gcc.c \
+../main.c 
 
 GEN_CMDS += \
 ./device_linker.lds 
@@ -22,35 +24,43 @@ GEN_FILES += \
 ./ti_msp_dl_config.c 
 
 C_DEPS += \
-./empty.d \
+./Motor_Simple.d \
+./SysTick.d \
 ./ti_msp_dl_config.d \
-./startup_mspm0l130x_gcc.d 
+./startup_mspm0l130x_gcc.d \
+./main.d 
 
 GEN_OPTS += \
 ./device.opt 
 
 OBJS += \
-./empty.o \
+./Motor_Simple.o \
+./SysTick.o \
 ./ti_msp_dl_config.o \
-./startup_mspm0l130x_gcc.o 
+./startup_mspm0l130x_gcc.o \
+./main.o 
 
 GEN_MISC_FILES += \
 ./device.lds.genlibs \
 ./ti_msp_dl_config.h 
 
 OBJS__QUOTED += \
-"empty.o" \
+"Motor_Simple.o" \
+"SysTick.o" \
 "ti_msp_dl_config.o" \
-"startup_mspm0l130x_gcc.o" 
+"startup_mspm0l130x_gcc.o" \
+"main.o" 
 
 GEN_MISC_FILES__QUOTED += \
 "device.lds.genlibs" \
 "ti_msp_dl_config.h" 
 
 C_DEPS__QUOTED += \
-"empty.d" \
+"Motor_Simple.d" \
+"SysTick.d" \
 "ti_msp_dl_config.d" \
-"startup_mspm0l130x_gcc.d" 
+"startup_mspm0l130x_gcc.d" \
+"main.d" 
 
 GEN_FILES__QUOTED += \
 "device_linker.lds" \
@@ -58,9 +68,11 @@ GEN_FILES__QUOTED += \
 "ti_msp_dl_config.c" 
 
 C_SRCS__QUOTED += \
-"../empty.c" \
+"../Motor_Simple.c" \
+"../SysTick.c" \
 "./ti_msp_dl_config.c" \
-"C:/ti/mspm0_sdk_2_01_00_03/source/ti/devices/msp/m0p/startup_system_files/gcc/startup_mspm0l130x_gcc.c" 
+"C:/ti/mspm0_sdk_2_01_00_03/source/ti/devices/msp/m0p/startup_system_files/gcc/startup_mspm0l130x_gcc.c" \
+"../main.c" 
 
 SYSCFG_SRCS__QUOTED += \
 "../empty.syscfg" 
